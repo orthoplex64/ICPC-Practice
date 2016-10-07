@@ -7,6 +7,8 @@ public class Main {
 	public static void main(String[] args) {
 //		ProblemsEasy.runEp14();
 //		ProblemsEasy.runEp15();
+		ProblemsEasy.runEp16();
+		ProblemsEasy.runEp17();
 //		ProblemsMedium.runMp3();
 //		ProblemsHard.runHp1();
 	}

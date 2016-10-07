@@ -2,7 +2,9 @@ package com.cmurr.icpcpractice;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ProblemsEasy {
 	
@@ -76,5 +78,50 @@ public class ProblemsEasy {
 			t.println(Arrays.deepToString(mat).replaceAll("\\], \\[", "],\n ["));
 			t.println("----------------");
 		}
+	}
+	
+	// the problem only specifies T1 and T2 are binary trees, not necessarily sorted
+	public static boolean ep16(TreeNode<?> T1, TreeNode<?> T2) {
+		if (T1 == null || T2 == null) return false;
+		return T1.isSubtree(T2) ||
+				ep16(T1.getLeft(), T2) ||
+				ep16(T1.getRight(), T2);
+	}
+	
+	public static void runEp16() {
+		t.println("EP16:");
+		TreeNode<Integer> bigTree = new TreeNode<>(7);
+		for (int i : new int[]{2, 8, 1, 4, 3, 10, 6, 5, 9, -102, 1000000}) {
+			bigTree.insert(i);
+		}
+		t.println("big tree:\n" + TreeNode.treeToString(bigTree, "  ", 0));
+		TreeNode<Integer> smallTree = new TreeNode<>(2);
+		for (int i : new int[]{1, 4, 3}) {
+			smallTree.insert(i);
+		}
+		t.println("small tree:\n" + TreeNode.treeToString(smallTree, "  ", 0));
+		t.println(ep16(bigTree, smallTree) + " " + ep16(smallTree, bigTree));
+	}
+	
+	public static LLNode<?> ep17(LLNode<?> list) {
+		Set<LLNode<?>> visited = new HashSet<>();
+		while (list != null) {
+			if (visited.contains(list)) return list;
+			visited.add(list);
+			list = list.getNext();
+		}
+		return null;
+	}
+	
+	public static void runEp17() {
+		t.println("EP17:");
+		LLNode<String> list = new LLNode<>("A");
+		list.setNext(new LLNode<String>("B"));
+		list.getNext().setNext(new LLNode<String>("C"));
+		list.getNext().getNext().setNext(new LLNode<String>("D"));
+		list.getNext().getNext().getNext().setNext(new LLNode<String>("E"));
+		list.getNext().getNext().getNext().getNext().setNext(list.getNext().getNext());
+		t.println("list: " + list);
+		t.println(ep17(list).getData());
 	}
 }
