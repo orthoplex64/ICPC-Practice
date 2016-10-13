@@ -1,5 +1,7 @@
 package com.cmurr.icpcpractice;
 
+import java.util.Arrays;
+
 public class ProblemsHard {
 	
 	public static final java.io.PrintStream t = Main.t;
@@ -29,5 +31,45 @@ public class ProblemsHard {
 			t.println(addends[0] + " + " + addends[1] + " = " + hp1(addends[0], addends[1]));
 			t.println(addends[1] + " + " + addends[0] + " = " + hp1(addends[1], addends[0]));
 		}
+	}
+	
+	public static void shuffle(int[] arr, int begin, int end) {
+		for (int i = begin; i < end; i++) {
+			int j = i + 1 + (int) (Math.random() * (end - i));
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+	}
+	
+	public static void hp2(int[] deck) {
+		shuffle(deck, 0, deck.length - 1);
+	}
+	
+	public static void runHp2() {
+		t.println("HP2:");
+		int numShuffles = 1_000_000;
+		int[] baseDeck = new int[52];
+		int[] hist = new int[baseDeck.length];
+		for (int i = 0; i < baseDeck.length; i++) {
+			baseDeck[i] = i + 1;
+			hist[i] = 0;
+		}
+		int[] deck = new int[baseDeck.length];
+		for (int i = 0; i < numShuffles; i++) {
+			for (int j = 0; j < deck.length; j++) {
+				deck[j] = baseDeck[j];
+			}
+			hp2(deck);
+			for (int j = 0; j < deck.length; j++) {
+				hist[j] += deck[j];
+			}
+		}
+		double[] histD = new double[hist.length];
+		for (int i = 0; i < hist.length; i++) {
+			histD[i] = (double) hist[i] / ((double) numShuffles * 6);
+		}
+		t.println(Arrays.toString(hist));
+		t.println(Arrays.toString(histD));
 	}
 }

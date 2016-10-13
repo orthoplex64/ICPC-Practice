@@ -12,7 +12,8 @@ public class Main {
 //		ProblemsMedium.runMp3();
 //		ProblemsMedium.runMp4();
 //		ProblemsMedium.runMp5();
-		ProblemsMedium.runMp6();
+//		ProblemsMedium.runMp6();
 //		ProblemsHard.runHp1();
+		ProblemsHard.runHp2();
 	}
 }
